@@ -22,3 +22,20 @@ def todolist(request):
     # 將Todo模型所有物件回到todo
     todos = Todo.objects.all()
     return render(request, "todo/todolist.html", {"todos": todos})
+
+
+# 1.新增todo.html
+# 2. 將todo傳出到{{todo}}
+def view_todo(request, id):
+    todo = None
+    try:
+        # 從Todo模型取得id物件
+        todo = Todo.objects.get(id=id)
+        # context = {"id": todo.id, "title": todo.title}
+        # return HttpResponse(
+        #     json.dumps(context, ensure_ascii=False), content_type="application/json"
+        # )
+    except Exception as e:
+        print(e)
+
+    return render(request, "todo/view-todo.html", {"todo": todo})

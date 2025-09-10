@@ -18,19 +18,17 @@
 </head>
 
 <body>
-    <h1>TodoList</h1>
-    {% for todo in todos %}
+    <h1>Todo</h1>
+    {% if todo %}
     <div class="todo">
+        <h3>{{todo.title}}</h3>
         <h4>{{todo.created}}</h4>
-        <!-- 將title 綁定 route 的 name參數=> viewtodo -->
-        <!-- 點選title可指到該代辦事項id的連結 -->
-        <a href="{% url 'viewtodo' todo.id %}">
-            <h3>{{todo.title}}</h3>
-        </a>
         <p>{{todo.text}}</p>
         <u>{{todo.important}}</u>
     </div>
-    {% endfor %}
+    {% else %}
+    <h2>無此代辦事項</h2>
+    {% endif %}
 </body>
 
 </html>
