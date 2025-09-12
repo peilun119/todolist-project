@@ -19,6 +19,8 @@
 
 <body>
     <h1>TodoList</h1>
+    <!-- <a href="create-todo/" style="margin: 6px;">新增代辦事項</a> -->
+    <a href="{% url 'create-todo' %}" style="margin: 6px;">新增代辦事項</a>
     {% for todo in todos %}
     <div class="todo">
         <h4>{{todo.created}}</h4>
