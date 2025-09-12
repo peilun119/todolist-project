@@ -8,6 +8,8 @@ class Todo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     date_completed = models.DateTimeField(null=True, blank=True)
     important = models.BooleanField(default=False)
+    # 新增一個欄位代表完成與否
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.id} - {self.title} 建立時間:{self.created.strftime("%Y-%m-%d %H:%M:%S")} 是否重要:{self.important}"

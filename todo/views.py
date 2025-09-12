@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import json
 from .models import Todo
 from .forms import TodoForm
+from datetime import datetime
 
 
 # Create your views here.
@@ -45,7 +46,15 @@ def view_todo(request, id):
 
     if request.method == "POST":
         form = TodoForm(request.POST, instance=todo)  # 3
-        form.save()
+        todo = form.save(commit=False)  # 3 先不儲存做提交,而是暫存
+
+        # 如果完成被勾選,就更新完成時間
+        if todo.completed:
+            todo.date_completed = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        else:
+            todo.date_completed = None
+
+        todo.save()
         message = "更新資料成功!"
         return redirect("todolist")  # 成功後導回首頁
 
