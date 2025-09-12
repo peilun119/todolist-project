@@ -28,11 +28,14 @@ def todolist(request):
 
 # 1.新增todo.html
 # 2. 將todo傳出到{{todo}}
+# 3. 修改成ModelForm
 def view_todo(request, id):
-    todo = None
+    message = ""
+    # 檢視目前 3
     try:
         # 從Todo模型取得id物件
         todo = Todo.objects.get(id=id)
+        form = TodoForm(instance=todo)  # 3
         # context = {"id": todo.id, "title": todo.title}
         # return HttpResponse(
         #     json.dumps(context, ensure_ascii=False), content_type="application/json"
@@ -40,7 +43,15 @@ def view_todo(request, id):
     except Exception as e:
         print(e)
 
-    return render(request, "todo/view-todo.html", {"todo": todo})
+    if request.method == "POST":
+        form = TodoForm(request.POST, instance=todo)  # 3
+        form.save()
+        message = "更新資料成功!"
+        return redirect("todolist")  # 成功後導回首頁
+
+    return render(
+        request, "todo/view-todo.html", {"todo": todo, "form": form, "message": message}
+    )
 
 
 # 前端建立代辦事項

@@ -17,7 +17,7 @@
     </style>
 </head>
 
-<body>
+<!-- <body>
     <h1>Todo</h1>
     {% if todo %}
     <div class="todo">
@@ -29,6 +29,17 @@
     {% else %}
     <h2>無此代辦事項</h2>
     {% endif %}
+</body> -->
+
+<body>
+    <h1>View Todo</h1>
+    <form action="" method="POST">
+        <!-- post 需要帶CSRF -->
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">更新</button>
+    </form>
+    <p>{{message}}</p>
 </body>
 
 </html>

@@ -10,4 +10,4 @@ class TodoForm(ModelForm):
     class Meta:
         model = Todo
         # fields = "__all__"  # "__all__" 代表全部的物件
-        fields = ["title", "text", "important"]
+        fields = ["title", "text", "important", "date_completed"]

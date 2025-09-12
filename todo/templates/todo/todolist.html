@@ -31,6 +31,12 @@
         </a>
         <p>{{todo.text}}</p>
         <u>{{todo.important}}</u>
+        <!-- 如果todo.date_completed 完成欄位有值,就印出 -->
+        {% if todo.date_completed%}
+        <p>
+            完成時間:<u>{{todo.date_completed}}</u>
+        </p>
+        {% endif %}
     </div>
     {% endfor %}
 </body>
