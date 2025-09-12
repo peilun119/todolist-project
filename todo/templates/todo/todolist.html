@@ -24,7 +24,7 @@
         <h4>{{todo.created}}</h4>
         <!-- 將title 綁定 route 的 name參數=> viewtodo -->
         <!-- 點選title可指到該代辦事項id的連結 -->
-        <a href="{% url 'viewtodo' todo.id %}">
+        <a href="{% url 'view-todo' todo.id %}">
             <h3>{{todo.title}}</h3>
         </a>
         <p>{{todo.text}}</p>

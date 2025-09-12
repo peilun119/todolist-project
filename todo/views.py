@@ -39,3 +39,34 @@ def view_todo(request, id):
         print(e)
 
     return render(request, "todo/view-todo.html", {"todo": todo})
+
+
+# 前端建立代辦事項
+def create_todo(request):
+    message = ""
+
+    # GET -> 進入網頁的當下就是GET
+
+    # POST -> 按了提交的button會變POST
+    if request.method == "POST":
+        print(request.POST)  # 在網站測試輸入資料,按下提交後,會在終端機出現POST資料
+        title = request.POST.get("title")
+        if title == "":
+            print("標題欄位不能為空!")
+            message = "標題欄位不能為空"
+        else:
+            text = request.POST.get("text")
+            important = request.POST.get("important")
+
+            important = True if important == "on" else False  # 把on換成True
+
+            # 建立資料
+            todo = Todo.objects.create(
+                title=title,  # 資料表欄位名稱=上方的 title=request.POST.get("title")
+                text=text,
+                important=important,
+            )
+            todo.save()
+            message = "新增資料成功!"
+
+    return render(request, "todo/create-todo.html", {"message": message})
