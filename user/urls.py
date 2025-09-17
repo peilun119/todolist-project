@@ -18,10 +18,11 @@ Including another URLconf
 from django.urls import path
 
 # 直接引用自己資料夾的views.py
-from .views import user_register
+from .views import user_register, user_login
 
 # 從todo 複製url.py過來修改
 urlpatterns = [
     # 跟todolist的url.py路徑user/合起來就是正確路徑user/register
-    path("register/", user_register, name="user_register-todo"),
+    path("register/", user_register, name="user_register"),
+    path("login/", user_login, name="user_login"),
 ]
