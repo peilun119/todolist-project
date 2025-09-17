@@ -15,13 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
+# 直接引用自己資料夾的views.py
+from .views import create_todo, view_todo, delete_todo, todolist
 
-# todolist的urls.py變成控管進入點
+# 從todolist 複製url.py過來修改
+# 留下todo需要的首頁/新增/修改/刪除 四個功能
 urlpatterns = [
-    path("user/", include("user.urls")),
-    path("", include("todo.urls")),  # ""代表首頁
-    path("admin/", admin.site.urls),
+    path("delete-todo/<int:id>", delete_todo, name="delete-todo"),
+    path("create-todo/", create_todo, name="create-todo"),
+    path("todo/<int:id>", view_todo, name="view-todo"),
+    path("", todolist, name="todolist"),
 ]

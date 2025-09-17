@@ -67,7 +67,7 @@ def view_todo(request, id):
 # 前端建立代辦事項
 def create_todo(request):
     message = ""
-    form = CreateTodoForm()
+    form = CreateTodoForm()  # 另外使用新增表單
     # GET -> 進入網頁的當下就是GET
 
     # POST -> 按了提交的button會變POST
