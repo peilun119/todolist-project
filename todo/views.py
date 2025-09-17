@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
 from .models import Todo
-from .forms import TodoForm
+from .forms import TodoForm, CreateTodoForm
 from datetime import datetime
 
 
@@ -67,7 +67,7 @@ def view_todo(request, id):
 # 前端建立代辦事項
 def create_todo(request):
     message = ""
-    form = TodoForm()
+    form = CreateTodoForm()
     # GET -> 進入網頁的當下就是GET
 
     # POST -> 按了提交的button會變POST

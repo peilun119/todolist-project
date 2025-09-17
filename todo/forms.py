@@ -5,6 +5,13 @@ from django.forms import ModelForm
 from .models import Todo
 
 
+class CreateTodoForm(ModelForm):
+    # Meta -> 設定的概念
+    class Meta:
+        model = Todo
+        fields = ["title", "text", "important"]  # 將完成欄位拿掉
+
+
 class TodoForm(ModelForm):
     # Meta -> 設定的概念
     class Meta:
