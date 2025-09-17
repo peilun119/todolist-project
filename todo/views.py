@@ -44,6 +44,7 @@ def view_todo(request, id):
     except Exception as e:
         print(e)
 
+    # 更新資料
     if request.method == "POST":
         form = TodoForm(request.POST, instance=todo)  # 3
         todo = form.save(commit=False)  # 3 先不儲存做提交,而是暫存
@@ -54,7 +55,7 @@ def view_todo(request, id):
         else:
             todo.date_completed = None
 
-        todo.save()
+        todo.save()  # 3 儲存提交
         message = "更新資料成功!"
         return redirect("todolist")  # 成功後導回首頁
 
@@ -77,3 +78,16 @@ def create_todo(request):
         return redirect("todolist")  # 成功後導回首頁
 
     return render(request, "todo/create-todo.html", {"message": message, "form": form})
+
+
+# 刪除
+def delete_todo(request, id):
+    message = ""
+    try:
+        todo = Todo.objects.get(id=id)
+        # 刪除
+        todo.delete()
+    except Exception as e:
+        print(e)
+
+    return redirect("todolist")  # 成功後導回首頁
