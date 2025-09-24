@@ -1,49 +1,135 @@
 <!-- 繼承templates/base.html,重複的html語法全刪除 -->
 {% extends "base.html" %}
-
 {% block title %}
-<title>代辦事項</title>
+<title>目前代辦事項</title>
 {% endblock %}
+
 {% block css %}
 <style>
     .todo {
-        background-color: rgb(87, 236, 236);
-        border-radius: 12px;
-        padding: 12px;
-        margin: 6px;
-        width: 60%;
+        border: 1px solid #7dd3fc;
+        border-radius: 14px;
+        padding: 16px;
+        margin: 14px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .05);
+        transition: transform .15s ease, box-shadow .15s ease, background .2s;
+    }
+
+    .todo:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+        background: color-mix(in oklab, var(--card) 88%, white);
+    }
+
+    .todo h3 {
+        margin: 6px 0;
+        color: var(--fg);
+    }
+
+    .todo p {
+        margin: 6px 0;
+        color: var(--muted);
+    }
+
+    .todo .meta {
+        font-size: 14px;
+        color: var(--muted);
+    }
+
+    .todo .actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 8px;
+    }
+
+    /* 共用按鈕樣式 */
+    .todo .actions a {
+        font-size: 14px;
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: background .2s, color .2s;
+    }
+
+    /* 修改按鈕：藍色 */
+    .todo .actions a.edit {
+        background: #e0f2fe;
+        color: #0369a1;
+        border-color: #7dd3fc;
+    }
+
+    .todo .actions a.edit:hover {
+        background: #0369a1;
+        color: #fff;
+    }
+
+    /* 刪除按鈕：紅色 */
+    .todo .actions a.delete {
+        background: #fee2e2;
+        color: #b91c1c;
+        border-color: #fecaca;
+    }
+
+    .todo .actions a.delete:hover {
+        background: #b91c1c;
+        color: #fff;
+    }
+
+    .todo .important {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #b91c1c;
+        background: #fee2e2;
+        border-radius: 6px;
+        padding: 2px 8px;
+        margin-left: 6px;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 
-<h1>TodoList</h1>
+<!-- <h1>TodoList</h1> 修改css所以mark-->
 <!--進入首頁時,是沒有代辦事項或是未登入時,顯示提示 先新增或登入 -->
-{% if not todos %}
+<!-- {% if not todos %}
 無代辦事項,請先新增或登入
-{% endif %}
+{% endif %} 修改css所以mark-->
 
 <!-- <a href="create-todo/" style="margin: 6px;">新增代辦事項</a> -->
 {% for todo in todos %}
 <div class="todo">
-    <!-- 刪除的超連結 -->
-    <!-- onclick="return confirm('是否刪除??') => javascrip 新增點擊事件,提醒是否刪除 -->
-    <a href="{% url 'delete-todo' todo.id %}" onclick="return confirm('是否刪除??')">刪除</a>
-    <h4>{{todo.created}}</h4>
+    <div class="meta">
+        建立時間：{{todo.created}}
+        <!-- 如果todo.date_completed 完成欄位有值,就印出 -->
+        {% if todo.date_completed %}
+        完成時間：{{todo.date_completed}}
+        {% endif %}
+    </div>
     <!-- 將title 綁定 route 的 name參數=> viewtodo -->
     <!-- 點選title可指到該代辦事項id的連結 -->
-    <a href="{% url 'view-todo' todo.id %}">
+    <!-- <a href="{% url 'view-todo' todo.id %}">
         <h3>{{todo.title}}</h3>
-    </a>
+    </a> 修改css所以mark-->
+    <h3>
+        {{todo.title}}
+        {% if todo.important %}
+        <span class="important">重要</span>
+        {% endif %}
+    </h3>
     <p>{{todo.text}}</p>
-    <u>{{todo.important}}</u>
-    <!-- 如果todo.date_completed 完成欄位有值,就印出 -->
-    {% if todo.date_completed %}
-    <p>
-        完成時間:<u>{{todo.date_completed}}</u>
-    </p>
-    {% endif %}
+    <!-- <u>{{todo.important}}</u> -->
+    <div class="actions">
+        <a href="{% url 'view-todo' todo.id %}" class="edit">修改</a>
+        <!-- 刪除的超連結 -->
+        <!-- onclick="return confirm('是否刪除??') => javascrip 新增點擊事件,提醒是否刪除 -->
+        <a href="{% url 'delete-todo' todo.id %}" class="delete" onclick="return confirm('是否刪除??')">刪除</a>
+    </div>
 </div>
+<!-- empty必須與{ for }一起使用 -->
+<!-- 如果 { for  } 後面沒有 { empty } 標籤，當序列為空時，該 for 循環塊的內容將不會被渲染。  -->
+{% empty %}
+<p>目前沒有待辦事項。</p>
 {% endfor %}
 {% endblock %}
