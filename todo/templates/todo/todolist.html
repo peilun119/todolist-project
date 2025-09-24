@@ -18,10 +18,20 @@
 </head>
 
 <body>
+    <!-- 如果使用者是透過登入的,就讓他可以進入新增代辦事項畫面 -->
+    {% if user.is_authenticated %}
+    使用者: {{user.username}}
+    <a href="{% url 'create-todo' %}" style="margin: 6px;">新增代辦事項</a>
+    <a href="{% url 'user_logout' %}">登出</a>
+    <!-- 否則就只能登入或註冊 -->
+    {% else %}
+    <a href="{% url 'user_login' %}">登入</a>
     <a href="{% url 'user_register' %}">註冊</a> <!-- 導到註冊頁面 user_register  -->
+    {% endif %}
+
+
     <h1>TodoList</h1>
     <!-- <a href="create-todo/" style="margin: 6px;">新增代辦事項</a> -->
-    <a href="{% url 'create-todo' %}" style="margin: 6px;">新增代辦事項</a>
     {% for todo in todos %}
     <div class="todo">
         <!-- 刪除的超連結 -->

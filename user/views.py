@@ -53,3 +53,10 @@ def user_login(request):
             return redirect("todolist")  # 登入導到新增代辦事項
 
     return render(request, "user/login.html", {"message": message})
+
+
+# 登出畫面
+def user_logout(request):
+    logout(request)
+
+    return redirect("user_login")  # 登出後,導到登入頁面
