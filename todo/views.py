@@ -23,7 +23,13 @@ def books(resquest):
 def todolist(request):
     # 將Todo模型所有物件回到todo
     # .order_by("-created") 代表降序排序
-    todos = Todo.objects.all().order_by("-created")
+    # todos = Todo.objects.all().order_by("-created") 預設是看到所有代辦事項
+    todos = None
+
+    if request.user.is_authenticated:
+        # 修改為代辦事項綁定USER,用filter篩選事件使用者=登入的使用者
+        todos = Todo.objects.filter(user=request.user)
+
     return render(request, "todo/todolist.html", {"todos": todos})
 
 

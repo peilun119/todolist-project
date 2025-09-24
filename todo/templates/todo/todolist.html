@@ -31,6 +31,11 @@
 
 
     <h1>TodoList</h1>
+    <!--進入首頁時,是沒有代辦事項或是未登入時,顯示提示 先新增或登入 -->
+    {% if not todos %}
+    無代辦事項,請先新增或登入
+    {% endif %}
+
     <!-- <a href="create-todo/" style="margin: 6px;">新增代辦事項</a> -->
     {% for todo in todos %}
     <div class="todo">
