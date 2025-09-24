@@ -79,7 +79,11 @@ def create_todo(request):
     # POST -> 按了提交的button會變POST
     if request.method == "POST":
         form = TodoForm(request.POST)
-        form.save()
+        # 缺少綁定user,會報錯
+        todo = form.save(commit=False)
+        todo.user = request.user
+        todo.save()
+
         message = "新增資料成功!"
         return redirect("todolist")  # 成功後導回首頁
 
