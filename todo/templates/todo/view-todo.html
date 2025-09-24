@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <style>
-        .todo {
-            background-color: rgb(87, 236, 236);
-            border-radius: 12px;
-            padding: 12px;
-            margin: 6px;
-            width: 60%;
-        }
-    </style>
-</head>
+{% extends "base.html" %}
+{% block title %}
+<title>Document</title>
+{% endblock %}
+{% block css %}
+<style>
+    .todo {
+        background-color: rgb(87, 236, 236);
+        border-radius: 12px;
+        padding: 12px;
+        margin: 6px;
+        width: 60%;
+    }
+</style>
+{% endblock %}
 
 <!-- <body>
     <h1>Todo</h1>
@@ -31,15 +28,13 @@
     {% endif %}
 </body> -->
 
-<body>
-    <h1>View Todo</h1>
-    <form action="" method="POST">
-        <!-- post 需要帶CSRF -->
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">更新</button>
-    </form>
-    <p>{{message}}</p>
-</body>
-
-</html>
+{% block content %}
+<h1>View Todo</h1>
+<form action="" method="POST">
+    <!-- post 需要帶CSRF -->
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">更新</button>
+</form>
+<p>{{message}}</p>
+{% endblock%}

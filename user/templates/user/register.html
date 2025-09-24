@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block title %}
+<title>會員註冊</title>
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會員註冊</title>
-</head>
-
-<body>
-    <h1>Register</h1>
-    <form action="" method="POST">
-        <!-- post 需要帶CSRF -->
-        {% csrf_token %}
-        <!-- show 出form表單 -->
-        {{form.as_p}}
-        <button type="submit">註冊</button>
-    </form>
-    {{message}}
-</body>
-
-</html>
+{% block content %}
+<h1>Register</h1>
+<form action="" method="POST">
+    <!-- post 需要帶CSRF -->
+    {% csrf_token %}
+    <!-- show 出form表單 -->
+    {{form.as_p}}
+    <button type="submit">註冊</button>
+</form>
+{{message}}
+{% endblock %}
