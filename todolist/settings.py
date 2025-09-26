@@ -26,9 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-2l2)e&18h-ngt6z*%s(l6ps57aj68+ad^dmnb*#4wav%xknvev"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# 要上傳雲端就要改False避免別人看見程式錯誤原因
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# ["*"] 代表所有
+ALLOWED_HOSTS = ["todolist-project-0psx.onrender.com"]
 
 
 # Application definition
