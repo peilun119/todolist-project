@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 # pip install mysqlclient
 
@@ -18,6 +20,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -30,7 +33,7 @@ SECRET_KEY = "django-insecure-2l2)e&18h-ngt6z*%s(l6ps57aj68+ad^dmnb*#4wav%xknvev
 DEBUG = False
 
 # ["*"] 代表所有
-ALLOWED_HOSTS = ["todolist-project-0psx.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "todolist-project-0psx.onrender.com"]
 
 
 # Application definition
@@ -80,23 +83,25 @@ WSGI_APPLICATION = "todolist.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
-# 新增aiven雲端資料庫的登入資訊
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "defaultdb",
-        "USER": "avnadmin",
-        "PASSWORD": "AVNS_Ukq6fXxTr3Q0YUnS8PX",
-        "HOST": "mysql-63cdab1-aa8954158-dd04.j.aivencloud.com",
-        "PORT": 24112,
+else:
+    # 新增aiven雲端資料庫的登入資訊
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ.get("NAME"),
+            "USER": os.environ.get("USER"),
+            "PASSWORD": os.environ.get("PASSWORD"),
+            "HOST": os.environ.get("HOST"),
+            "PORT": os.environ.get("PORT"),
+        }
     }
-}
 
 
 # Password validation
