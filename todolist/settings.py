@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-2l2)e&18h-ngt6z*%s(l6ps57aj68+ad^dmnb*#4wav%xknvev
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # 要上傳雲端就要改False避免別人看見程式錯誤原因
-DEBUG = True
+DEBUG = False
 
 # ["*"] 代表所有
 ALLOWED_HOSTS = ["127.0.0.1", "todolist-project-0psx.onrender.com"]
@@ -101,7 +101,7 @@ else:
             "USER": os.environ.get("USER"),
             "PASSWORD": os.environ.get("PASSWORD"),
             "HOST": os.environ.get("HOST"),
-            "PORT": int(os.environ.get("PORT")),
+            "DB-PORT": int(os.environ.get("DB-PORT")),
         }
     }
 
