@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-2l2)e&18h-ngt6z*%s(l6ps57aj68+ad^dmnb*#4wav%xknvev
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # 要上傳雲端就要改False避免別人看見程式錯誤原因
-DEBUG = False
+DEBUG = True
 
 # ["*"] 代表所有
 ALLOWED_HOSTS = ["127.0.0.1", "todolist-project-0psx.onrender.com"]
@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "todo.apps.TodoConfig",
     "user.apps.UserConfig",
+    "api.apps.ApiConfig",  # 註冊 api
+    "rest_framework",  # 新增 restful api
 ]
 
 MIDDLEWARE = [

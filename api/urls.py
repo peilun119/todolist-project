@@ -15,14 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
 from django.urls import path, include
 
+# 直接引用自己資料夾的views.py
+from rest_framework.routers import DefaultRouter  # 自動化產生路由器
+from .views import TodoViewSet, UserViewSet
 
-# todolist的urls.py變成控管進入點
-urlpatterns = [
-    path("", include("api.urls")),  # 因為api的path有代"api/"所以與首頁不會衝突
-    path("user/", include("user.urls")),
-    path("", include("todo.urls")),  # ""代表首頁
-    path("admin/", admin.site.urls),
-]
+router = DefaultRouter()
+router.register(r"todos", TodoViewSet, basename="todo")
+
+router.register(r"users", UserViewSet, basename="user")
+
+
+urlpatterns = [path("api/", include(router.urls))]
