@@ -89,12 +89,12 @@
 </style>
 {% endblock %}
 
+
+{% block content %}
+
 <div id="todo-list">
 
 </div>
-
-
-{% block content %}
 
 <!-- <h1>TodoList</h1> 修改css所以mark-->
 <!--進入首頁時,是沒有代辦事項或是未登入時,顯示提示 先新增或登入 -->
@@ -163,16 +163,15 @@
         console.log(todos);
 
         listDiv.innerHTML = "";
-        // todos.forEach((todo) => {
-        //     console.log(todo);
-        //     const li = document.createElement("li");
-        //     li.textContent = `${todo.title}<br>${todo.text}`;
-        //     listDiv.appendChild(li);
-        // });
-
+        todos.forEach((todo) => {
+            console.log(todo);
+            const li = document.createElement("li");
+            li.textContent = `${todo.title}-${todo.text}`;
+            listDiv.appendChild(li);
+        });
     }
-
-    // getTodoList();
+    // 上傳雲端所以將測試api remark
+    // getTodoList();   
 
 </script>
 {% endblock %}
